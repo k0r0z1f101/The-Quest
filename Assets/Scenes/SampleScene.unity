@@ -236,6 +236,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b3c95a9728a5eaea4f035a0f6cd87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _plantsToInstanciate:
+  - {fileID: 2861587752013842222, guid: fed2222c8e0f6ab3f8db9eead3f1a893, type: 3}
+  - {fileID: 3514414082432619019, guid: 7539f0f9b9a1851da994d94f3c3f4a76, type: 3}
+  _animalsToInstanciate:
+  - {fileID: 9148797875993774612, guid: fa22c5df7283e31868b2e2f43327aae1, type: 3}
+  - {fileID: 7525981365879049883, guid: 6e13a58f340773e018495759d5ff875f, type: 3}
+  _heroToInstanciate:
+  - {fileID: 5397988236167732050, guid: 71f563dd668a8603e904849aa13c686a, type: 3}
 --- !u!4 &988702554
 Transform:
   m_ObjectHideFlags: 0
