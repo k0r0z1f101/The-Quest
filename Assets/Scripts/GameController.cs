@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
   private List<GameObject> _animalsToInstanciate;
   [SerializeField]
   private List<GameObject> _heroToInstanciate;
+  private List<List<GameObject>> toInstantiate = new List<List<GameObject>>();
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,36 +22,38 @@ public class GameController : MonoBehaviour
 
     public void createScene()
     {
+      toInstantiate.Add(_plantsToInstanciate);
+      toInstantiate.Add(_animalsToInstanciate);
+      toInstantiate.Add(_heroToInstanciate);
       //create parents
       _plants = new GameObject("Plants");
       _animals = new GameObject("Animals");
       _hero = new GameObject("Hero");
 
-      //instanciate objects in Plants
-      foreach(GameObject i in _plantsToInstanciate)
+      for(int i = 0; i < toInstantiate.Count; ++i)
       {
-        GameObject newObj = Instantiate(i, new Vector2(0, 0), Quaternion.identity) as GameObject;
-        newObj.transform.SetParent(_plants.transform);
-        newObj.GetComponent<SpriteRenderer>().sortingLayerName = "PasMinou";
-        newObj.GetComponent<SpriteRenderer>().sortingOrder = _plantsToInstanciate.IndexOf(i);
-      }
+        foreach(GameObject j in toInstantiate[i])
+        {
+          GameObject newObj = Instantiate(j, new Vector2(0, 0), Quaternion.identity) as GameObject;
 
-      //instanciate objects in Animals
-      foreach(GameObject i in _animalsToInstanciate)
-      {
-        GameObject newObj = Instantiate(i, new Vector2(0, 0), Quaternion.identity) as GameObject;
-        newObj.transform.SetParent(_animals.transform);
-        newObj.GetComponent<SpriteRenderer>().sortingLayerName = "Minou";
-        newObj.GetComponent<SpriteRenderer>().sortingOrder = _animalsToInstanciate.IndexOf(i);
-      }
-
-      //instanciate objects in Hero
-      foreach(GameObject i in _heroToInstanciate)
-      {
-        GameObject newObj = Instantiate(i, new Vector2(0, 0), Quaternion.identity) as GameObject;
-        newObj.transform.SetParent(_hero.transform);
-        newObj.GetComponent<SpriteRenderer>().sortingLayerName = "Hero";
-        newObj.GetComponent<SpriteRenderer>().sortingOrder = _heroToInstanciate.IndexOf(i);
+          switch(i)
+          {
+            case 0:
+              newObj.transform.SetParent(_plants.transform);
+              newObj.GetComponent<SpriteRenderer>().sortingLayerName = "PasMinou";
+            break;
+            case 1:
+              newObj.transform.SetParent(_animals.transform);
+              newObj.GetComponent<SpriteRenderer>().sortingLayerName = "Minou";
+            break;
+            case 2:
+              newObj.transform.SetParent(_hero.transform);
+              newObj.GetComponent<SpriteRenderer>().sortingLayerName = "Hero";
+            break;
+          }
+          
+          newObj.GetComponent<SpriteRenderer>().sortingOrder = toInstantiate[i].IndexOf(j);
+        }
       }
     }
 }
